@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
-
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:mycomp="http://xmlns.jcp.org/jsf/composite/mycomponent">
     <h:head>   
         <title>PrimeFaces Test</title>
     </h:head>
     <h:body>
         
         <h1>#{testView.testString}</h1>
-        
+        <p:messages autoUpdate="true" showDetail="true"/>
+        <div>Output standard: #{testView.testInputStandard}</div>
+        <div>Output custom: #{testView.testInputCustom}</div>
+        <div>Output custom holder: #{testView.testInputCustomHolder}</div>
+        <div>Output custom holder with composite: #{testView.testInputCustomHolderWithComposite}</div>
+        <h:form id="form">
+
+            <h:panelGrid columns="3">
+                <p:outputLabel for="standardInputText" value="Label for standard InputText"/>
+                <h:inputText id="standardInputText" value="#{testView.testInputStandard}" required="true"/>
+                <p:message for="standardInputText" display="text"/>
+
+                <p:outputLabel for="customInputTextTooltip" value="Label for custom InputTextTooltip"/>
+                <mycomp:inputTextTooltip id="customInputTextTooltip" value="#{testView.testInputCustom}" tooltip="Test tooltip text" required="true"/>
+                <p:message for="customInputTextTooltip" display="text"/>
+
+
+                <p:outputLabel for="customInputTextTooltipHolder" value="Label for custom InputTextTooltipHolder" />
+                <mycomp:inputTextTooltipHolder id="customInputTextTooltipHolder" value="#{testView.testInputCustomHolder}" tooltip="Test tooltip text holder" required="true" />
+                <p:message for="customInputTextTooltipHolder" display="text" />
+
+                <p:outputLabel for="customInputTextTooltipHolderWithComposite" value="Label for custom InputTextTooltipHolderWithComposite" />
+                <mycomp:inputTextTooltipHolderWithComposite id="customInputTextTooltipHolderWithComposite"  value="#{testView.testInputCustomHolderWithComposite}" tooltip="Test tooltip text holder with composite" required="true" />
+                <p:message for="customInputTextTooltipHolderWithComposite" display="text" />
+
+            </h:panelGrid>
+
+            <ui:repeat value="#{testView.testInputList}" var="inputsModel">
+                <br/>
+                <h:outputText value="#{inputsModel.testString}" />
+                <br/>
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="standardInputTextRepeat" value="Label for standard InputText #{inputsModel.testString}"/>
+                    <h:inputText id="standardInputTextRepeat" value="#{inputsModel.testInputStandard}" required="true"/>
+                    <p:message for="standardInputTextRepeat" display="text"/>
+
+                    <p:outputLabel for="customInputTextTooltipRepeat" value="Label for custom InputTextTooltip #{inputsModel.testString}"/>
+                    <mycomp:inputTextTooltip id="customInputTextTooltipRepeat" value="#{inputsModel.testInputCustom}" tooltip="Test tooltip text" required="true"/>
+                    <p:message for="customInputTextTooltipRepeat" display="text"/>
+
+
+                    <p:outputLabel for="customInputTextTooltipHolderRepeat" value="Label for custom InputTextTooltipHolder #{inputsModel.testString}" />
+                    <mycomp:inputTextTooltipHolder id="customInputTextTooltipHolderRepeat" value="#{inputsModel.testInputCustomHolder}" tooltip="Test tooltip text holder" required="true" />
+                    <p:message for="customInputTextTooltipHolderRepeat" display="text" />
+
+                    <p:outputLabel for="customInputTextTooltipHolderWithCompositeRepeat" value="Label for custom InputTextTooltipHolderWithComposite #{inputsModel.testString}" />
+                    <mycomp:inputTextTooltipHolderWithComposite id="customInputTextTooltipHolderWithCompositeRepeat"  value="#{inputsModel.testInputCustomHolderWithComposite}" tooltip="Test tooltip text holder with composite" required="true" />
+                    <p:message for="customInputTextTooltipHolderWithCompositeRepeat" display="text" />
+
+                </h:panelGrid>
+            </ui:repeat>
+
+            <p:commandButton value="send" update="@all" />
+            <p:commandButton value="reset" update="@all" process="@this">
+                <p:resetInput target="form" />
+            </p:commandButton>
+        </h:form>    
     </h:body>
 </html>
