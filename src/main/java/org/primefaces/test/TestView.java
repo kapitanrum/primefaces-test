@@ -8,21 +8,21 @@ import javax.faces.bean.ManagedBean;
 
 @ManagedBean(name = "testView")
 public class TestView implements Serializable {
-    
+
     private String testString;
     private String testInputStandard;
     private String testInputCustom;
     private String testInputCustomHolder;
     private String testInputCustomHolderWithComposite;
-    private List<InputsModel> testInputList = new ArrayList<>();
-    
+    private List<InputsBean> testInputList = new ArrayList<InputsBean>();
+
     @PostConstruct
     public void init() {
-        testString = "Welcome to PrimeFaces!!!";
-        for (int i=0; i<10 ; i++) {
-            InputsModel inputsModel = new InputsModel();
-            inputsModel.setTestString("Repeat " + i);
-            testInputList.add(inputsModel);
+        testString = "Primefaces tags and custom CC with required=\"true\"";
+        for (int i = 0; i < 3; i++) {
+            InputsBean inputsBean = new InputsBean();
+            inputsBean.setTestString("Repeat " + i);
+            testInputList.add(inputsBean);
         }
     }
 
@@ -66,11 +66,11 @@ public class TestView implements Serializable {
         this.testInputCustomHolderWithComposite = testInputCustomHolderWithComposite;
     }
 
-    public List<InputsModel> getTestInputList() {
+    public List<InputsBean> getTestInputList() {
         return testInputList;
     }
 
-    public void setTestInputList(List<InputsModel> testInputList) {
+    public void setTestInputList(List<InputsBean> testInputList) {
         this.testInputList = testInputList;
     }
 }

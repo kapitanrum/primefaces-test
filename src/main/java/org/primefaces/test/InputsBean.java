@@ -1,6 +1,6 @@
 package org.primefaces.test;
 
-public class InputsModel {
+public class InputsBean {
     private String testString;
     private String testInputStandard;
     private String testInputCustom;
